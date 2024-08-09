@@ -1,0 +1,121 @@
+<html>
+  <head></head>
+  <style>
+    body {
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      left: 0;
+      top: 0;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+
+      --border: 10px;
+      --mask: #000;
+      --radius: 18px;
+    }
+
+    @property --angle {
+      syntax: "<angle>";
+      initial-value: 0deg;
+      inherits: false;
+    }
+
+    #layout {
+      width: 400px;
+      height: 640px;
+      border-radius: var(--radius);
+      padding: var(--border);
+      position: relative;
+      background-image: conic-gradient(
+        from var(--angle),
+        #ff0000,
+        #9400d3,
+        #4b0082,
+        #0000ff,
+        #00ff00,
+        #ffff00,
+        #ff7f00,
+        #ff0000
+      );
+      animation: 3s spin linear infinite;
+    }
+
+    #layout::after {
+      content: "";
+      position: absolute;
+      background: var(--mask);
+      height: calc(100% - 2 * var(--border));
+      width: calc(100% - 2 * var(--border));
+      border-radius: calc(var(--radius) - 2px);
+    }
+
+    #layout::before {
+      content: "";
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      background-image: conic-gradient(
+        from var(--angle),
+        #ff0000,
+        #9400d3,
+        #4b0082,
+        #0000ff,
+        #00ff00,
+        #ffff00,
+        #ff7f00,
+        #ff0000
+      );
+      animation: 3s spin linear infinite;
+      filter: blur(1.5rem);
+    }
+
+    @keyframes spin {
+      from {
+        --angle: 0deg;
+      }
+      to {
+        --angle: 360deg;
+      }
+    }
+  </style>
+  <body>
+    <div id="layout" />
+  </body>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const width = urlParams.get("width");
+    const height = urlParams.get("height");
+    const border = urlParams.get("border");
+    const maskColor = urlParams.get("maskColor");
+    const radius = urlParams.get("radius");
+
+    console.log({ width, height, border, maskColor, radius });
+
+    const layout = document.getElementById("layout");
+    const body = document.querySelector("body");
+
+    if (width) {
+      layout.style.width = width;
+    }
+    if (height) {
+      layout.style.height = height;
+    }
+    if (border) {
+      body.style.setProperty("--border", `${border}px`);
+    }
+    if (maskColor) {
+      body.style.setProperty(
+        "--mask",
+        maskColor === "transparent" ? maskColor : `#${maskColor}`
+      );
+    }
+    if (radius) {
+      body.style.setProperty("--radius", `${radius}px`);
+    }
+  </script>
+</html>
