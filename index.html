@@ -1,6 +1,12 @@
 <html>
   <head></head>
   <style>
+    @property --angle {
+      syntax: "<angle>";
+      initial-value: 0deg;
+      inherits: false;
+    }
+
     body {
       width: 100%;
       height: 100%;
@@ -17,12 +23,9 @@
       --border: 10px;
       --mask: #000;
       --radius: 18px;
-    }
-
-    @property --angle {
-      syntax: "<angle>";
-      initial-value: 0deg;
-      inherits: false;
+      --color: transparent;
+      --gradient: #ff0000, #9400d3, #4b0082, #0000ff, #00ff00, #ffff00, #ff7f00,
+        #ff0000;
     }
 
     #layout {
@@ -31,17 +34,8 @@
       border-radius: var(--radius);
       padding: var(--border);
       position: relative;
-      background-image: conic-gradient(
-        from var(--angle),
-        #ff0000,
-        #9400d3,
-        #4b0082,
-        #0000ff,
-        #00ff00,
-        #ffff00,
-        #ff7f00,
-        #ff0000
-      );
+      background-image: conic-gradient(from var(--angle), var(--gradient));
+      background-color: var(--color);
       animation: 3s spin linear infinite;
     }
 
@@ -59,17 +53,8 @@
       position: absolute;
       height: 100%;
       width: 100%;
-      background-image: conic-gradient(
-        from var(--angle),
-        #ff0000,
-        #9400d3,
-        #4b0082,
-        #0000ff,
-        #00ff00,
-        #ffff00,
-        #ff7f00,
-        #ff0000
-      );
+      background-image: conic-gradient(from var(--angle), var(--gradient));
+      background-color: var(--color);
       animation: 3s spin linear infinite;
       filter: blur(1.5rem);
     }
@@ -90,11 +75,12 @@
     const urlParams = new URLSearchParams(window.location.search);
     const width = urlParams.get("width");
     const height = urlParams.get("height");
+    const color = urlParams.get("color");
     const border = urlParams.get("border");
     const maskColor = urlParams.get("maskColor");
     const radius = urlParams.get("radius");
 
-    console.log({ width, height, border, maskColor, radius });
+    console.log({ width, height, color, border, maskColor, radius });
 
     const layout = document.getElementById("layout");
     const body = document.querySelector("body");
@@ -104,6 +90,10 @@
     }
     if (height) {
       layout.style.height = height;
+    }
+    if (color) {
+      body.style.setProperty("--gradient", undefined);
+      body.style.setProperty("--color", `#${color}`);
     }
     if (border) {
       body.style.setProperty("--border", `${border}px`);
