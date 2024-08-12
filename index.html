@@ -85,10 +85,10 @@
     const height = urlParams.get("height");
     const color = urlParams.get("color");
     const border = urlParams.get("border");
-    const maskColor = urlParams.get("maskColor");
     const radius = urlParams.get("radius");
+    const maskColor = urlParams.get("maskColor");
 
-    console.log({ width, height, color, border, maskColor, radius });
+    console.log({ width, height, color, border, radius, maskColor });
 
     const layout = document.getElementById("layout");
     const body = document.querySelector("body");
@@ -106,14 +106,14 @@
     if (border) {
       body.style.setProperty("--border", `${border}px`);
     }
+    if (radius) {
+      body.style.setProperty("--radius", `${radius}px`);
+    }
     if (maskColor) {
       body.style.setProperty(
         "--mask",
         maskColor === "transparent" ? maskColor : `#${maskColor}`
       );
-    }
-    if (radius) {
-      body.style.setProperty("--radius", `${radius}px`);
     }
   </script>
 </html>
