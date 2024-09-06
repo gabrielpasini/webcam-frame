@@ -83,9 +83,9 @@
     const urlParams = new URLSearchParams(window.location.search);
     const width = urlParams.get("width");
     const height = urlParams.get("height");
-    const color = urlParams.get("color");
     const border = urlParams.get("border");
     const radius = urlParams.get("radius");
+    const color = urlParams.get("color");
     const maskColor = urlParams.get("maskColor");
 
     console.log({ width, height, color, border, radius, maskColor });
@@ -101,7 +101,7 @@
     }
     if (color) {
       body.style.setProperty("--gradient", undefined);
-      body.style.setProperty("--color", color);
+      body.style.setProperty("--color", `#${color}`);
     }
     if (border) {
       body.style.setProperty("--border", `${border}px`);
@@ -112,7 +112,7 @@
     if (maskColor) {
       body.style.setProperty(
         "--mask",
-        maskColor === "transparent" ? maskColor : maskColor
+        maskColor === "transparent" ? maskColor : `#${maskColor}`
       );
     }
   </script>
