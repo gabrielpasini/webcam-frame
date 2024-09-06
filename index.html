@@ -101,7 +101,7 @@
     }
     if (color) {
       body.style.setProperty("--gradient", undefined);
-      body.style.setProperty("--color", `#${color}`);
+      body.style.setProperty("--color", color);
     }
     if (border) {
       body.style.setProperty("--border", `${border}px`);
@@ -112,7 +112,7 @@
     if (maskColor) {
       body.style.setProperty(
         "--mask",
-        maskColor === "transparent" ? maskColor : `#${maskColor}`
+        maskColor === "transparent" ? maskColor : maskColor
       );
     }
   </script>
